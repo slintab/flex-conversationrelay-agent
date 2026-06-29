@@ -1,0 +1,25 @@
+{
+  "name": "cr-agent-worker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "test": "vitest",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.12.4",
+    "@types/node": "^26.0.1",
+    "typescript": "^5.5.2",
+    "vitest": "~3.2.0",
+    "wrangler": "^4.105.0"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.2",
+    "ai": "^7.0.4",
+    "itty-router": "^5.0.24",
+    "twilio": "^6.0.2"
+  }
+}
