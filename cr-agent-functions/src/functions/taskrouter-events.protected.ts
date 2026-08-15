@@ -27,24 +27,6 @@ type MyContext = {
   SYNC_SERVICE_SID?: string;
 };
 
-async function hasAgentConfig(
-  client: TwilioClient,
-  syncServiceSid: string,
-  workerSid: string,
-): Promise<boolean> {
-  try {
-    await client.sync.v1
-      .services(syncServiceSid)
-      .documents(`agent_${workerSid}`)
-      .fetch();
-
-    return true;
-  } catch (err) {
-    if ((err as { status?: number })?.status !== 404) throw err;
-    return false;
-  }
-}
-
 async function acceptReservation(
   client: TwilioClient,
   workspaceSid: string,
@@ -132,19 +114,6 @@ export const handler: ServerlessFunctionSignature = async function (
 
     if (!(FLEX_NUMBER && TWIML_APP_SID && SYNC_SERVICE_SID)) {
       return createError(Error("Internal error"), 500, callback);
-    }
-
-    if (!(await hasAgentConfig(client, SYNC_SERVICE_SID, WorkerSid))) {
-      await rejectReservation(client, WorkspaceSid, TaskSid, ReservationSid);
-
-      console.warn(
-        `Rejected reservation ${ReservationSid}: no agent configuration for ${WorkerSid}`,
-      );
-
-      return createResponse(
-        "Reservation rejected: agent is not configured",
-        callback,
-      );
     }
 
     await acceptReservation(

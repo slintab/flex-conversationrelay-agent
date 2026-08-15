@@ -96,6 +96,12 @@ function resolveConfig(
 
 function buildTwiml(config: AgentConfig, url: string) {
   const twiml = new Twilio.twiml.VoiceResponse();
+
+  // Pause to let customer join conference
+  twiml.pause({
+    length: 5,
+  });
+
   const connect = twiml.connect();
 
   connect.conversationRelay({
