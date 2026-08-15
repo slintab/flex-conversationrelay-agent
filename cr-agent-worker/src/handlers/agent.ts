@@ -3,13 +3,13 @@ import { fetchAgentConfiguration, resolvePrompt } from '../utils/twilio';
 import { LLMService } from '../services/LLMService';
 import { ConversationRelayService } from '../services/ConversationRelayService';
 
-export const agentHandler = async (req: IRequest) => {
-	const upgradeHeader = req.headers.get('Upgrade');
+export const agentHandler = async (request: IRequest) => {
+	const upgradeHeader = request.headers.get('Upgrade');
 	if (!upgradeHeader || upgradeHeader !== 'websocket') {
 		return new Response('Expected Upgrade: websocket', { status: 426 });
 	}
 
-	const { workerSid, taskSid } = req;
+	const { workerSid, taskSid } = request;
 	if (!(workerSid && taskSid)) {
 		return new Response('Missing parameters', { status: 400 });
 	}
@@ -27,7 +27,7 @@ export const agentHandler = async (req: IRequest) => {
 	const [client, server] = Object.values(new WebSocketPair());
 	server.accept();
 
-	const llm = new LLMService(agentConfig.provider, agentConfig.model, prompt, agentConfig.tools);
+	const llm = new LLMService(process.env.LLM_PROVIDER!, process.env.LLM_MODEL!, prompt);
 	const cr = new ConversationRelayService(server, llm);
 
 	server.addEventListener('message', (event) => {

@@ -13,13 +13,14 @@
   },
   "dependencies": {
     "@twilio-labs/serverless-runtime-types": "^4.0.0",
+    "@twilio/runtime-handler": "2.0.3",
     "twilio": "6.0.2",
-    "@twilio/runtime-handler": "2.0.3"
+    "twilio-flex-token-validator": "^1.6.0"
   },
   "devDependencies": {
+    "copyfiles": "^2.4.1",
     "twilio-run": "^5.0.0",
-    "typescript": "^5.3.3",
-    "copyfiles": "^2.4.1"
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": "^20.x || ^22.x"

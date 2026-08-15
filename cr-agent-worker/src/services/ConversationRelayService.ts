@@ -33,9 +33,5 @@ export class ConversationRelayService {
 		if (message.type === 'interrupt') {
 			this.llm.interrupt();
 		}
-
-		if (message.type === 'error') {
-			// handle errors
-		}
 	}
 }

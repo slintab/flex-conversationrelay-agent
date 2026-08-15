@@ -32,8 +32,8 @@ export async function fetchAgentConfiguration(name: string): Promise<AgentConfig
 
 	try {
 		const client = twilio(accountSid, authToken);
-
 		const document = client.sync.v1.services(syncServiceSid!).documents(`agent_${name}`).fetch();
+
 		return (await document).data;
 	} catch (error) {
 		console.error('Error fetching agent configuration:', error);
@@ -91,10 +91,7 @@ export async function resolvePrompt(workerSid: string, taskSid: string, rawPromp
 	const client = getTwilioClient();
 	if (!client) return false;
 
-	const [workerAttrs, taskAttrs] = await Promise.all([
-		fetchWorkerAttributes(client, workerSid),
-		fetchTaskAttributes(client, taskSid),
-	]);
+	const [workerAttrs, taskAttrs] = await Promise.all([fetchWorkerAttributes(client, workerSid), fetchTaskAttributes(client, taskSid)]);
 
 	return substituteAttributes(rawPrompt, workerAttrs, taskAttrs);
 }
