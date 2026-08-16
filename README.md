@@ -29,7 +29,7 @@ The solution uses the following components:
 - **Twilio TaskRouter**: routes calls to AI agents.
 - **Twilio Functions** _(cr-agent-functions)_: provides middleware for handling reservations for CR agents, serving the `<ConversationRelay>` TwiML and interacting with Sync.
 - **Cloudflare Worker** _(cr-agent-worker)_: provides middleware for streaming messages between ConversationRelay and the LLM.
-  **LLM** _(OpenAI)_: generates responses.
+- **LLM** _(OpenAI)_: generates responses.
 
 The below diagram illustrates the call flow:
 
